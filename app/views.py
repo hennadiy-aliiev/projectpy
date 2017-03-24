@@ -15,6 +15,7 @@ from .util.avatars import allowed_file, allowed_size
 from .util.emails import signup_notification, reset_notification, follower_notification
 from .util.online_users import mark_online, get_user_last_activity, get_online_users
 from .util.security import ts
+from .util.redirects import get_redirect_target, redirect_back
 
 
 @app.errorhandler(404)
@@ -47,11 +48,12 @@ def before_request():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('sign_in'))                 
+    return redirect(url_for('sign_in'))
 
 
 @app.route('/signin', methods=['GET', 'POST'])                             
 def sign_in():
+    next = get_redirect_target()
     if g.user is not None and g.user.is_authenticated:
         return redirect(url_for('index'))
     form = SignInForm()                                                           
@@ -62,13 +64,13 @@ def sign_in():
             return redirect(url_for('sign_in'))
         if user.email_confirmed:                              
             if user.is_correct_password(form.password.data):
-                login_user(user)                                                  
-                return redirect(url_for('index'))
+                login_user(user)
+                return redirect_back('sign_in')
             flash('Incorrect password!', 'danger')
-            return redirect(url_for('sign_in')) 
+            return redirect_back('sign_in') 
         flash('This account is not activated! Check your email box for verification letter.', 'info')
     
-    return render_template('signin.html', title='SignIn', form=form)
+    return render_template('signin.html', next=next, title='SignIn', form=form)
 
 
 @app.route('/signup', methods=['GET', 'POST'])                                 
@@ -252,8 +254,7 @@ def upload_file():
             user = User.query.filter_by(avatar=check_name).first()
             if user is not None:     
                 filename = User.make_unique_image_name(filename)
-            
-            # if exists delete old g.user's image            
+                       
             if g.user.avatar != DEFAULT_AVATAR:
                 os.remove(os.path.join(os.getcwd(), 'app' + g.user.avatar))
 
@@ -331,7 +332,6 @@ def unfollow(nickname):
         return redirect(url_for('user', nickname=nickname))
     db.session.add(u)
     db.session.commit()
-    
     flash('You have stopped following {}.'.format(nickname), 'success')
     
     return redirect(url_for('user', nickname=nickname))
