@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'flash.html' %}
+    <div>  
+        <h4> I'm following: 
+        {% for user in user.followed %}
+            <a href="{{ url_for('user', nickname=user.nickname)}}">{{ user.nickname }}</a> |
+        {% endfor %}
+        </h4>
+        <hr>
+        <h4>Followed posts:</h4>
+      	{% for post in posts.items %}
+        	{% include 'post.html' %}
+      	{% endfor %}
+      	<div>
+            <ul class="pager custom-color">
+            {% if posts.has_prev %}
+                <li><a href="{{ url_for('subscriptions', page=posts.prev_num) }}">><< Newer posts</a></li>
+            {% else %}
+                << Newer posts
+            {% endif %} | 
+            {% if posts.has_next %}
+                <li><a href="{{ url_for('subscriptions', page=posts.next_num) }}">Older posts >></a></li>
+            {% else %}
+                Older posts >>
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

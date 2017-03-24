@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'flash.html' %}
+	<div>  	
+		<h3><strong>Nickname: </strong>{{ user.nickname }}</h3>
+	  	{% if user.about_me %}
+	  		<p>{{ user.about_me }}</p>
+	  	{% endif %}
+	 	{% if user.last_seen %}
+		    <p><em>Last seen: {{ momentjs(user.last_seen).calendar() }}</em></p>
+		{% endif %}
+		<p> 
+		{% if user.id == g.user.id %}
+		    <a href="{{ url_for('edit') }}" class="btn btn-primary btn-sm custom-button">Edit my profile</a>
+		{% elif not g.user.is_following(user) %}
+		    <a href="{{ url_for('follow', nickname=user.nickname) }}" class="btn btn-default btn-xs">Follow</a>
+		{% else %}
+		    <a href="{{ url_for('unfollow', nickname=user.nickname) }}" class="btn btn-default btn-sm">Unfollow</a>
+		{% endif %}
+	  	</p>
+	</div>
+  	<hr>
+  	<h4>Posts:</h4>
+  	{% for post in posts.items %}
+    	{% include 'post.html' %}
+  	{% endfor %}
+  	<div>
+		<ul class="pager custom-color">
+		{% if posts.has_prev %}
+			<li><a href="{{ url_for('user', nickname=user.nickname, page=posts.prev_num) }}">><< Newer posts</a></li>
+		{% else %}
+			<< Newer posts
+		{% endif %} | 
+		{% if posts.has_next %}
+			<li><a href="{{ url_for('user', nickname=user.nickname, page=posts.next_num) }}">Older posts >></a></li>
+		{% else %}
+			Older posts >>
+		{% endif %}
+		</ul>
+	</div>
+{% endblock %}

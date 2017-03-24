@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row">		
+		<div class="col-sm-10 col-md-10 col-lg-10">			
+			{% include 'flash.html' %}
+			<br>
+			<form action="" method="post" name="post">
+              	<div class="input-group">
+                	{{ form.hidden_tag() }}
+                	{{ form.post(size=80, maxlength=500, placeholder="Say something:", class="form-control", style="border-radius: 4px 1px 1px 4px" )}}
+                	<div class="input-group-btn">
+                  		<button class="btn btn-primary custom-button" type="submit">Post!</button>
+                	</div>
+              	</div>
+            </form>
+            {% for error in form.errors.post %}
+		    	<span style="color: red;">[{{ error }}]</span>
+		    {% endfor %}
+		    <br>
+			{% for post in posts.items %}
+		        {% include 'post.html' %}
+		    {% endfor %}
+			<div>
+				<ul class="pager custom-color">
+			    {% if posts.has_prev %}
+			    	<li><a href="{{ url_for('index', page=posts.prev_num) }}"><< Newer posts</a></li>
+			    {% else %}
+			    	<< Newer posts
+			    {% endif %} | 
+			    {% if posts.has_next %}
+			    	<li><a href="{{ url_for('index', page=posts.next_num) }}">Older posts >></a></li>
+			    {% else %}
+			    	Older posts >>
+			    {% endif %}
+				</ul>
+			</div>
+			<br>
+		</div>
+		<div class="col-sm-2 col-md-2 col-lg-2">
+			<h4 class="text-center">Hi, {{g.user.nickname}}!</h4>
+			<a href="{{ url_for('user', nickname=user.nickname)}}"><img src="{{ user.avatar }}" class="img-thumbnail" alt="avatar""></a>		  	
+		  	<div class="list-group">
+				<a href="{{ url_for('subscriptions')}}" class="list-group-item highlight">i'm following: <span class="badge">{{ user.followed.count() }}</span></a>
+				<p class="list-group-item highlight">followers: <span class="badge">{{ user.followers.count() }}</span></p>
+				<a href="{{ url_for('user', nickname=user.nickname)}}" class="list-group-item highlight">My posts: <span class="badge">{{ user.posts.count() }}</span></a>
+			</div>			
+		  	<br>  
+			<div>
+				<p class="text-center">Online:</p>
+			  	<ul class="list-unstyled text-center">
+			  	{% for x in online_users %}
+			    	<li>{{ x }}</li>
+			    {% endfor %} 
+			  	</ul>
+		  	</div>
+		  	<br>
+	  	</div>
+    </div>
+{% endblock %}

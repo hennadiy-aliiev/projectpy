@@ -1,0 +1,17 @@
+<div class="media">
+  <div class="media-left">
+  	<a href="{{ url_for('user', nickname=post.author.nickname)}}"><img src="{{ post.author.avatar }}" class="media-object img-rounded" alt="avatar" style="width: 60px; max-height: 80px"></a>
+  </div>
+  <div class="media-body well highlight">
+    <div class="media-heading">
+    	<p><a href="{{ url_for('user', nickname=post.author.nickname)}}" class="btn btn-default btn-xs"><strong>{{ post.author.nickname }}</strong></a> 
+        	<em>Posted {{ momentjs(post.timestamp).fromNow() }}:</em> 
+			{% if post.author.id == g.user.id %}
+				<a href="{{ url_for('delete', id=post.id) }}" class="btn btn-default btn-xs">Delete</a>
+			{% endif %}
+		</p>
+	</div>
+    <p>{{ post.body }}</p>
+  </div>
+</div>
+

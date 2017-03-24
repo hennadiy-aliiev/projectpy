@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'flash.html' %}
+  	<div class="form-width form-centered well">
+    	<h1 class="text-center">Reset password</h1>
+    	<form action="" method="post" name="reset">
+      		<div class="form-group">                
+		        {{ form.hidden_tag() }}
+		        {{ form.email.label }}: 
+	        {% for error in form.email.errors %}
+	          	<span style="color: red;">[{{ error }}]</span>
+	        {% endfor %}
+		        {{ form.email(placeholder="yourname@email.com", class="form-control") }}
+		        {{ form.csrf_token }}     
+		    </div>
+      		<button type="submit" class="btn btn-primary">Reset my password</button>
+    	</form>
+  	</div>
+{% endblock %}

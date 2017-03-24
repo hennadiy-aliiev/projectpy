@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'flash.html' %}
+  	<div class="form-width form-centered well">
+    	<h1 class="text-center">Set new password</h1>
+    	<form action="{{ url_for('reset_with_token', token=token) }}" method="POST">
+      		<div class="form-group">                
+		        {{ form.hidden_tag() }}
+		        {{ form.password.label }}: 
+	        {% for error in form.password.errors %}
+	          	<span style="color: red;">[{{ error }}]</span>
+	        {% endfor %}
+		        {{ form.password(placeholder="6-18 characters", class="form-control") }}
+		        {{ form.csrf_token }}     
+		    </div>
+      		<button type="submit" class="btn btn-primary">Change my password</button>
+    	</form>
+  	</div>
+{% endblock %}

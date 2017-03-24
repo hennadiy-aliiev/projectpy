@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include 'flash.html' %}
+<h1>Edit My Profile</h1>
+    <div class="form-width well">
+        <form action="" method="post" name="edit">
+            <div class="form-group">                
+                {{ form.hidden_tag() }}
+                {{ form.nickname.label }}:
+                {% for error in form.nickname.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %} 
+                {{ form.nickname(size=24, class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.about_me.label }}:
+                {% for error in form.about_me.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %} 
+                {{ form.about_me(cols=32, rows=4, class="form-control") }}
+                {{ form.csrf_token }}              
+            </div>
+            <button type="submit" class="btn btn-primary custom-button">Save Changes</button>
+        </form>
+    </div>
+<div class="form-width well">
+    <img src="{{ user.avatar }}" alt="avatar" style="width: 128px">
+    <form action = "/uploader" method = "POST" enctype = "multipart/form-data">
+        <input  type = "file" name = "file" />
+        <br>
+        <input  class="btn btn-primary custom-button" type = "submit" />
+    </form>
+    <p><i>*allowed extensions: .png, .jpq, .jpeq, .gif<br>*maximum size of image: 2 megabytes</i></p>
+</div>
+<hr>
+{% endblock %}
+
