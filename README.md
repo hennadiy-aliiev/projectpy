@@ -18,13 +18,13 @@ You need python 3.5, nginx, redis and virtual environment.<br>
 <br>
 <em>to start the app USING NGINX AND GUNICORN</em><br>
 5. install nginx package<br>
-6. set up environment variables: SECRET_KEY, SALT_EMAIL_KEY, SALT_RECOVERY_KEY and MAIL_USERNAME, MAIL_PASSWORD (your mail login credentials). In most cases you need to set up enironment variables in gunicorn files (there are plenty ways to do that). For security reasons i can't tell where are mine.<br>
+6. set up environment variables in your <code>"yourvenv/bin/activate"</code> file or <code>.bashrc</code> file in /home/user/ directory: SECRET_KEY, SALT_EMAIL_KEY, SALT_RECOVERY_KEY and MAIL_USERNAME, MAIL_PASSWORD (your mail login credentials). In some cases you need to set up enironment variables in gunicorn files (there are plenty ways to do that). For security reasons i can't tell where are mine.<br>
 7. configure nginx, gunicorn and redis depending on your OS or Remote(Cloud) Server.
 <br>
 <br>
 <em>to start the app WITHOUT NGINX AND GUNICORN</em><br>
 5. it's enough to set up environment variables in your <code>"yourvenv/bin/activate"</code> file.<br>
-6. (in most cases there is no need to configure redis).
+6. (there is no need to configure redis).
 <br>
 <br>
 <strong>Running</strong>
