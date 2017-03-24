@@ -1,4 +1,4 @@
-<strong>Aboout</strong>
+<strong>About</strong>
 <hr>
 Hi! My name is Hennadii and this is my microblogging web application written in Python and Flask.
 Currently the <a href="http://159.203.164.211/">application</a> had been deployed on Digital Ocean remote server running with Nginx as reverse proxy, Gunicorn wsgi-server and Redis.
