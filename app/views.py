@@ -119,11 +119,8 @@ def confirm_email(token):
 @app.route('/index/<int:page>', methods=['GET', 'POST'])
 @login_required
 def index(page=1):  
-
     online_users = get_online_users()
-    
     new_online_users = {online_user.decode('utf-8') for online_user in online_users}
-    
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body=form.post.data, timestamp=datetime.utcnow(), author=g.user)
