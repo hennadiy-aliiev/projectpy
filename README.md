@@ -24,7 +24,7 @@ You need python 3.5, nginx, redis and virtual environment.<br>
 <br>
 <em>to start the app WITHOUT NGINX AND GUNICORN</em><br>
 5. it's enough to set up environment variables in your <code>"yourvenv/bin/activate"</code> file.<br>
-6. (in most cases there is no need to configure redis)
+6. (in most cases there is no need to configure redis).
 <br>
 <br>
 <strong>Running</strong>
