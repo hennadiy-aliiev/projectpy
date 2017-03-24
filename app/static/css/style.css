@@ -1,0 +1,31 @@
+* {
+	order: 1px solid black;               /* for testing */
+}
+
+.form-width {
+	width: 350px;
+}
+
+.form-centered {
+	margin: auto;
+}
+
+button.custom-button, a.custom-button, input.custom-button {
+	background-color: #009999;
+}
+
+span.badge {
+	background-color: #009999;
+}
+
+ul.custom-color li a {
+	color: #009999;
+}
+
+.highlight:hover {
+	background-color: #f2f2f2;
+}
+
+a.highlight:hover {
+	background-color: #f2f2f2;
+}
