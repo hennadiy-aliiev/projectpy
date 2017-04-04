@@ -1,0 +1,10 @@
+__pycache__/
+db_repository/
+search.db/
+whoosh_index/
+/app/static/uploads/*
+!default_av_image.png
+*.pyc
+*.log
+*.db
+
